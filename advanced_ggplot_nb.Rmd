@@ -126,8 +126,8 @@ better_box
 The ggsave function let's you save the last generated plot (or whatever one you specify) as vector graphics like SVG or PDF (good for importing into Illustrator or Inkscape), or raster graphics like TIF, JPG, or PNG. You can specify the dpi (raster only) and size of the image.
 
 ```{r saving}
-ggsave(scatter_plot, filename = "initial_scatterplot.svg", width = 6, height = 6, units = "in")
-ggsave(scatter_plot, filename = "initial_scatterplot.jpg", width = 6, height = 6, units = "in", dpi = 300)
+ggsave(scatter_plot, filename = "figs/initial_scatterplot.svg", width = 6, height = 6, units = "in")
+ggsave(scatter_plot, filename = "figs/initial_scatterplot.jpg", width = 6, height = 6, units = "in", dpi = 300)
 ```
 
 
@@ -183,7 +183,7 @@ Here's the default behavior of gridExtra - which might send you running to Stack
 ```{r fig.height=3.5, fig.width=7}
 grid.arrange(better_scatter, better_box, ncol = 2) # again, this prints to display
 better_scatter_box <- arrangeGrob(p1, better_box, ncol = 2) # make a grob that includes both plots
-ggsave(plot = better_scatter_box, filename = "double_plot.png", device = "png")
+ggsave(plot = better_scatter_box, filename = "figs/double_plot.png", device = "png")
 ```
 
 Cringing a little? Me too. Let's fix this quickly, using cowplot's `plot_grid`. 
@@ -209,13 +209,13 @@ Note: the positioning of the flower species labels varies by panel because it's 
 library(magick)
 
 setosa <- ggdraw() +
-  draw_image("iris_setosa.jpg", scale = 0.8) +
+  draw_image("figs/iris_setosa.jpg", scale = 0.8) +
   draw_text("Iris setosa", fontface = "bold.italic", color = "white", size = 12, hjust = -0.2, vjust = 8)
 virginica <- ggdraw() +
-  draw_image("iris_virginica.JPG", scale = 0.8) +
+  draw_image("figs/iris_virginica.JPG", scale = 0.8) +
   draw_text("Iris virginica", fontface = "bold.italic", color = "white", size = 12, hjust = 0, vjust = 8)
 versicolor <- ggdraw() +
-  draw_image("iris_versicolor.JPG", scale = 0.8) +
+  draw_image("figs/iris_versicolor.JPG", scale = 0.8) +
   draw_text("Iris versicolor", fontface = "bold.italic", color = "white", size = 12, hjust = 0.1, vjust = 8)
 
 first_row <- plot_grid(better_box,
@@ -240,12 +240,12 @@ complete_figure <- plot_grid(first_row,
   ncol = 1
 )
 complete_figure
-ggsave(filename = "iris_multipanel.png", plot = complete_figure)
+ggsave(filename = "figs/iris_multipanel.png", plot = complete_figure)
 ```
 
 #### The mysterious grid
 
-![Image credit: the egg package vignette](egg_vignette_layouts.png)
+![Image credit: the egg package vignette](figs/egg_vignette_layouts.png)
 
 If you've ever "ungrouped" the SVG or PDF version of a ggplot - you've encountered the grid. The [image above](https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html?utm_content=buffercef33&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer), from Baptiste Auguié's powerful egg package, shows the layout of a ggplot. When you're having trouble getting an annotation (using `geom_text()`) to fit onto your final image, often the problem is that you've run out of whitespace around your plot for the annotation. You can increase the whitespace by expanding the `margins`. There are ways to do this in both [base R graphics](https://www.r-bloggers.com/setting-graph-margins-in-r-using-the-par-function-and-lots-of-cow-milk/) and [ggplot](https://ggplot2.tidyverse.org/reference/element.html#examples). Here's a ggplot example that cleans up the look of our last multi-panel plot. 
 
