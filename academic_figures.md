@@ -286,9 +286,8 @@ complete_figure
 
 ### The mysterious grid
 
-<center>
 ![Image credit: the egg package vignette](figs/egg_vignette_layouts.png)
-</center>
+
 If you've ever "ungrouped" the SVG or PDF version of a ggplot - you've encountered the grid. The [image above](https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html?utm_content=buffercef33&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer), from Baptiste Auguié's powerful egg package, shows the underlying layout of a ggplot. When you're having trouble getting an annotation (using `geom_text()` or cowplot's `draw_label()`) to fit onto your final image, often the problem is that you've run out of whitespace around your plot for the annotation. You can increase the whitespace by expanding the margins. There are ways to do this in both [base R graphics](https://www.r-bloggers.com/setting-graph-margins-in-r-using-the-par-function-and-lots-of-cow-milk/) and [ggplot](https://ggplot2.tidyverse.org/reference/element.html#examples). Here's a ggplot example that adjusts the plot margins so that cowplot's labels are pushed upward.
 
 ``` r
